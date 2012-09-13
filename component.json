@@ -1,0 +1,9 @@
+{
+  "name": "sentient",
+  "version": "0.0.1",
+  "scripts": ["index.js","lib/entities.js","lib/entity.js","lib/loop.js","lib/sentient.js","lib/timer.js"],
+  "dependencies": {
+    "component/jquery": "*",
+    "example/game": "*"
+  }
+}

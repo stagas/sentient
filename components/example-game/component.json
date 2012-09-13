@@ -1,0 +1,12 @@
+{
+  "name": "game",
+  "scripts": [
+    "index.js","game/control.js","game/dom.js","game/game.js",
+    "game/keyboard.js","game/motion.js","game/renderer.js",
+    "game/shoot.js","game/v.js"
+  ],
+  "styles": ["game/style.css"],
+  "dependencies": {
+    "component/jquery": "*"
+  }
+}
