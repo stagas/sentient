@@ -113,6 +113,10 @@ V.sin = function () {
   return Math.sin(this.x)
 }
 
+V.half = function () {
+  return this.div(2)
+}
+
 Object.keys(V).forEach(function (k) {
   var fn = V[k]
   Vector.prototype[k] = function (x, y) {

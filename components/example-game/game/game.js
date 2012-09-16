@@ -17,11 +17,12 @@ game.use('settings', function (e) {
   e.set = function (k, v) { return (e[k] = v) }
 })
 
-game.use('defaults', function (e) {
-  e.set('friction', V(0.98))
+game.use('defaults', ['settings'], function (e) {
+  e.set('friction', V(0.995))
+  e.set('accel', V(0.04))
 })
 
-game.use('world', ['defaults', 'settings'], function (e) {
+game.use('world', ['defaults'], function (e) {
   e.world = e.parent
 })
 
@@ -31,8 +32,6 @@ game.use('position', function (e) {
 
 game.use('motion', ['position'], function (e) {
   e.vel = V(0,0)
-  e.angle = V(180)
-  e.accel = V(0)
 })
 
 game.use('inputs', function (e) {

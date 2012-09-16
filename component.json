@@ -1,9 +1,17 @@
 {
   "name": "sentient",
   "version": "0.0.2",
-  "scripts": ["index.js","lib/entities.js","lib/entity.js","lib/loop.js","lib/sentient.js","lib/timer.js"],
+  "scripts": [
+    "index.js",
+    "lib/entities.js",
+    "lib/entity.js",
+    "lib/loop.js",
+    "lib/sentient.js",
+    "lib/timer.js",
+    "lib/animframe.js"
+    ],
   "dependencies": {
-    "component/jquery": "*",
-    "example/game": "*"
-  }
+    "component/jquery": "*"
+  },
+  "bundled": ["example-game"]
 }

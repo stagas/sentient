@@ -11,6 +11,7 @@ module.exports = function (game) {
         if (key == 38) e.dir.y = -1
         if (key == 39) e.dir.x = 1
         if (key == 40) e.dir.y = 1
+        if (e.dir.x && e.dir.y) e.dir.half()
         if (shoot[key]) e.shoot.set(1)
       }
     })
