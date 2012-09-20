@@ -1,6 +1,6 @@
 {
   "name": "sentient",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Entity based game framework",
   "main": "index.js",
   "scripts": {
