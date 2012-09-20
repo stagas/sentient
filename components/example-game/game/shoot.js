@@ -1,6 +1,6 @@
 module.exports = function (game) {
   game.on('update', function () {
-    game.entitiesOf('control', function (e) {
+    game.entitiesOf('control').forEach(function (e) {
       if (e.shoot.gt(0)) {
         if (!e.shooting) {
           e.shooting = true

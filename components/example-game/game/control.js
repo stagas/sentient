@@ -2,7 +2,7 @@ module.exports = function (game) {
   game.use('control')
   var shoot = { 90: 1, 16: 1, 17: 1, 18: 1 }
   game.on('keys', function (keys) {
-    game.entitiesOf('control', function (e) {
+    game.entitiesOf('control').forEach(function (e) {
       e.shoot.set(0)
       e.dir.set(0,0)
       for (var i = keys.length, key; i--;) {

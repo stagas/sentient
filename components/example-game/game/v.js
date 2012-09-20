@@ -24,7 +24,40 @@ Vector.prototype.copy = function () {
   return new Vector(this)
 }
 
+Vector.prototype.copyTo = function (vec) {
+  vec.x = this.x
+  vec.y = this.y
+  return vec
+}
+
 Vector.prototype.get = function () {
+  return this
+}
+
+Vector.prototype.rand = function (x, y) {
+  this.x = Math.random() * (x || 1)
+  this.y = Math.random() * (y || x || 1)
+  return this
+}
+
+Vector.prototype.keepIn = function (size, box) {
+  var nw = box.nw
+  var se = box.se
+  if (this.x < nw.x)
+    this.x = nw.x
+  else if (this.x + size.x > se.x) 
+    this.x = se.x - size.x
+  
+  if (this.y < nw.y)
+    this.y = nw.y
+  else if (this.y + size.y > se.y)
+    this.y = se.y - size.y
+  
+  return this
+}
+
+Vector.prototype.interpolate = function (b, f) {
+  this.plus(b.minus(this).mul(f))
   return this
 }
 
@@ -41,31 +74,31 @@ V.set = function (x, y) {
   return this
 }
 
-V.sub = function (x, y) {
+V.sub = V.minus = function (x, y) {
   this.x -= x
   this.y -= y
   return this
 }
 
-V.add = function (x, y) {
+V.add = V.plus = function (x, y) {
   this.x += x
   this.y += y
   return this
 }
 
-V.mul = function (x, y) {
+V.mul = V.times = function (x, y) {
   this.x *= x
   this.y *= y
   return this
 }
 
-V.div = function (x, y) {
+V.div = V.divide = function (x, y) {
   this.x /= x
   this.y /= y
   return this
 }
 
-V.abs = function () {
+V.abs = V.absolute = function () {
   this.x = Math.abs(this.x)
   this.y = Math.abs(this.y)
   return this
@@ -79,7 +112,7 @@ V.range = function (min, max) {
   return this
 }
 
-V.neg = function () {
+V.neg = V.negate = function () {
   this.x = -this.x
   this.y = -this.y
   return this
@@ -115,6 +148,12 @@ V.sin = function () {
 
 V.half = function () {
   return this.div(2)
+}
+
+V.round = function () {
+  this.x = Math.round(this.x)
+  this.y = Math.round(this.y)
+  return this
 }
 
 Object.keys(V).forEach(function (k) {
