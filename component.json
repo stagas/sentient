@@ -1,6 +1,6 @@
 {
   "name": "sentient",
-  "version": "0.0.2",
+  "version": "0.0.5",
   "scripts": [
     "index.js",
     "lib/entities.js",
@@ -8,10 +8,11 @@
     "lib/loop.js",
     "lib/sentient.js",
     "lib/timer.js",
-    "lib/animframe.js"
+    "lib/animframe.js",
+    "lib/utils.js"
     ],
   "dependencies": {
     "component/jquery": "*"
   },
-  "bundled": ["example-game","soccer"]
+  "local": ["example-game","soccer"]
 }
