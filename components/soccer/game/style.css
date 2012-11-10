@@ -18,4 +18,10 @@ body {
   position:fixed;
   background:#446677;
   border-radius:100%;
+  z-index:0;
+}
+
+.shadow {
+  z-index:-1;
+  background:#000 !important;
 }

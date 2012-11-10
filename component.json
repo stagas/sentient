@@ -13,5 +13,5 @@
   "dependencies": {
     "component/jquery": "*"
   },
-  "bundled": ["example-game"]
+  "bundled": ["example-game","soccer"]
 }

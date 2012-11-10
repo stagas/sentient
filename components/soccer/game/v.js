@@ -1,8 +1,8 @@
 // vector constructor
 
-function Vector (x, y) {
-  if (!(this instanceof Vector)) return new Vector(x, y)
-  this.set(x, y)
+function Vector (x, y, z) {
+  if (!(this instanceof Vector)) return new Vector(x, y, z)
+  this.set(x, y, z)
   return this
 }
 
@@ -26,6 +26,8 @@ Vector.prototype.toString = function (precision) {
     this.x.toFixed(precision || Vector._precision)
   + ','
   + this.y.toFixed(precision || Vector._precision)
+  + ','
+  + this.z.toFixed(precision || Vector._precision)
   )
 }
 
@@ -36,6 +38,7 @@ Vector.prototype.copy = function () {
 Vector.prototype.copyTo = function (vec) {
   vec.x = this.x
   vec.y = this.y
+  vec.z = this.z
   return vec
 }
 
@@ -43,9 +46,10 @@ Vector.prototype.get = function () {
   return this
 }
 
-Vector.prototype.rand = function (x, y) {
+Vector.prototype.rand = function (x, y, z) {
   this.x = Math.random() * (x || 1)
   this.y = Math.random() * (y || x || 1)
+  this.z = Math.random() * (z || y || x || 1)
   return this
 }
 
@@ -82,74 +86,83 @@ V.map = function (fn) {
   return this
 }
 
-V.set = function (x, y) {
+V.set = function (x, y, z) {
   this.x = x
   this.y = y
+  this.z = z
   return this
 }
 
-V.sub = V.minus = function (x, y) {
+V.sub = V.minus = function (x, y, z) {
   this.x -= x
   this.y -= y
+  this.z -= z
   return this
 }
 
-V.add = V.plus = function (x, y) {
+V.add = V.plus = function (x, y, z) {
   this.x += x
   this.y += y
+  this.z += z
   return this
 }
 
-V.mul = V.times = function (x, y) {
+V.mul = V.times = function (x, y, z) {
   this.x *= x
   this.y *= y
+  this.z *= z
   return this
 }
 
-V.div = V.divide = function (x, y) {
+V.div = V.divide = function (x, y, z) {
   this.x /= x
   this.y /= y
+  this.z /= z
   return this
 }
 
 V.abs = V.absolute = function () {
   this.x = Math.abs(this.x)
   this.y = Math.abs(this.y)
+  this.z = Math.abs(this.z)
   return this
 }
 
 V.range = function (min, max) {
   if (this.x < min) this.x = min
   if (this.y < min) this.y = min
+  if (this.z < min) this.z = min
   if (this.x > max) this.x = max
   if (this.y > max) this.y = max
+  if (this.z > max) this.z = max
   return this
 }
 
 V.neg = V.negate = function () {
   this.x = -this.x
   this.y = -this.y
+  this.z = -this.z
   return this
 }
 
-V.lt = function (x, y) {
-  return (this.x < x && this.y < y)
+V.lt = function (x, y, z) {
+  return (this.x < x && this.y < y && this.z < z)
 }
 
-V.gt = function (x, y) {
-  return (this.x > x && this.y > y)
+V.gt = function (x, y, z) {
+  return (this.x > x && this.y > y && this.z > z)
 }
 
-V.lte = function (x, y) {
-  return (this.x <= x && this.y <= y)
+V.lte = function (x, y, z) {
+  return (this.x <= x && this.y <= y && this.z <= z)
 }
 
-V.gte = function (x, y) {
-  return (this.x >= x && this.y >= y)
+V.gte = function (x, y, z) {
+  return (this.x >= x && this.y >= y && this.z >= z)
 }
 
-V.eq = V.equals = function (x, y) {
-  return (this.x === x && this.y === y)
+V.eq = V.equals = function (x, y, z) {
+  return (this.x === x && this.y === y && this.z === z)
 }
 
 V.cos = function () {
@@ -167,22 +180,32 @@ V.half = function () {
 V.round = function () {
   this.x = Math.round(this.x)
   this.y = Math.round(this.y)
+  this.z = Math.round(this.z)
+  return this
+}
+
+V.pow = function (n) {
+  this.x = Math.pow(this.x, n)
+  this.y = Math.pow(this.y, n)
+  this.z = Math.pow(this.z, n)
   return this
 }
 
 V.sqrt = function () {
   this.x = Math.sqrt(this.x)
   this.y = Math.sqrt(this.y)
+  this.z = Math.sqrt(this.z)
   return this
 }
 
 Object.keys(V).forEach(function (k) {
   var fn = V[k]
-  Vector.prototype[k] = function (x, y) {
+  Vector.prototype[k] = function (x, y, z) {
     var o = san(x, y)
-    var ret = fn.call(this, o.x, o.y)
+    var ret = fn.call(this, o.x, o.y, o.z)
     this[0] = this.x
     this[1] = this.y
+    this[2] = this.z
     return ret
   }
 })
@@ -195,18 +218,20 @@ module.exports = Vector
 
 // sanitize value
 
-function san (x, y) {
+function san (x, y, z) {
   var xtype = typeof x
-  if ('object' === xtype) {
-    if (Array.isArray(x)) y = x[1], x = x[0]
-    else y = x.y, x = x.x
+
+  if ('string' == xtype) x = x.split(',').map(Number)
+  
+  if ('object' == xtype) {
+    if (Array.isArray(x)) z = x[2], y = x[1], x = x[0]
+    else z = x.z, y = x.y, x = x.x
   }
-  else if ('string' === xtype) {
-    if ('undefined' === typeof y) y = x.split(','), x = y[0], y = y[1]
-    x = parseFloat(x)
-    y = parseFloat(y)
-  }
-  else if ('number' === xtype && 'undefined' === typeof y) y = x
-  else if ('undefined' === xtype) x = 0, y = 0
-  return { x: x, y: y, 0: x, 1: y }
+
+  x = x || 0
+  y = y || x || 0
+  z = z || y || x || 0
+
+  var ret = { x:x, y:y, z:z, 0:x, 1:y, 2:z }
+  return ret
 }

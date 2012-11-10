@@ -1,0 +1,8 @@
+{
+  "name": "soccer",
+  "scripts": ["index.js"],
+  "styles": ["game/style.css"],
+  "dependencies": {
+    "component/jquery": "*"
+  }
+}

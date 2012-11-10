@@ -5,7 +5,7 @@ f.expose(f.node().js)
 
 f.require('sentient')
 f.require('jquery')
-f.require('game')
+f.require('example-game')
 
 f.expose(function () {
   var $ = require('jquery')
